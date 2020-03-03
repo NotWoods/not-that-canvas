@@ -1,12 +1,7 @@
 // @ts-check
 
-import { createLayer, backgroundLayer } from './layer.js';
-import {
-  CanvasController,
-  toUrl,
-  createCanvas,
-  scaleCanvas,
-} from './canvas.js';
+import { createLayer } from './layer.js';
+import { CanvasController, createCanvas, scaleCanvas } from './canvas.js';
 import { selectLayer, updatePreview } from './options.js';
 
 const VIEWER_SIZE = 192;
@@ -21,7 +16,7 @@ const template = document.querySelector('.layer__template');
 const options = document.querySelector('.options');
 /** @type {NodeListOf<HTMLDivElement>} */
 const canvasContainers = document.querySelectorAll(
-  '.icon__mask, .icon__original',
+  '.icon__mask',
 );
 
 /** @type {WeakMap<Element, import("./layer.js").Layer>} */
@@ -41,7 +36,7 @@ function createCanvases(preview) {
 }
 
 {
-  const background = backgroundLayer();
+  const background = createLayer();
   /** @type {HTMLCanvasElement} */
   const backgroundPreview = document.querySelector(
     '.layer__preview--background',
@@ -122,7 +117,7 @@ options.addEventListener('input', evt => {
 
   const layer = layers.get(checked());
   layer[input.name] =
-    input.type !== 'range' ? input.value : Number.parseInt(input.value, 10);
+    input.type === 'range' ? Number.parseInt(input.value, 10) : input.value;
 
   cancelAnimationFrame(lastHandle);
   lastHandle = requestAnimationFrame(() => {
@@ -143,24 +138,17 @@ function button(name, listener) {
 }
 
 button('add', () => {
-  const color =
-    '#' +
-    Math.random()
-      .toString(16)
-      .substr(-6);
-  newLayerElement(createLayer(color));
+  newLayerElement(createLayer());
 });
-button('export', async () => {
-  const url = await toUrl(controller.export(), true);
+button('export', () => {
+  // Turn the canvas into an image
+  const imageUrl = controller.export().toDataURL('image/png');
 
+  // Create a fake link element for downloading the image
   let a = document.createElement('a');
-  a.href = url;
-  a.download = 'maskable_icon.png';
+  a.href = imageUrl;
+  a.download = 'icon.png';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-
-  if (url.startsWith('blob:')) {
-    URL.revokeObjectURL(url);
-  }
 });

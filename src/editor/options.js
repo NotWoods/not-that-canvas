@@ -8,9 +8,10 @@ const options = document.querySelector('.options');
  * @param {HTMLInputElement} input
  */
 export function updatePreview(input) {
-  if (input.className !== 'control__input') return;
-  const preview = /** @type {HTMLSpanElement} */ (input.nextElementSibling);
-  preview.textContent = input.value + (preview.dataset.suffix || '');
+  if (input.matches('.control__input')) {
+    const preview = /** @type {HTMLSpanElement} */ (input.nextElementSibling);
+    preview.textContent = input.value + (preview.dataset.suffix || '');
+  }
 }
 
 /**
@@ -18,11 +19,12 @@ export function updatePreview(input) {
  * @param {import("./layer").Layer} layer
  */
 export function selectLayer(layer) {
+  options.shape.forEach(radio => {
+    radio.checked = radio.value === layer.shape;
+  })
   options.scale.value = layer.scale;
-  options.scale.disabled = layer.locked;
   options.fill.value = layer.fill;
   options.alpha.value = layer.alpha;
-  options.alpha.disabled = layer.locked;
   Array.from(options.elements).forEach(updatePreview);
 }
 

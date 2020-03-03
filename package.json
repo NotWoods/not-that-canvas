@@ -1,31 +1,10 @@
 {
-  "name": "maskable",
   "private": true,
   "scripts": {
-    "format": "prettier \"src/**/*.js\" \"*.{html,css,md,json}\" \"{workbox-,rollup.}config.js\" --write",
-    "build": "npm run prepare -- --optimize && npm run nomodule && npm run minify:js:src && npm run minify:js:modules && npm run minify:css && npm run sw && npm run minify:js:sw && npm run gzip",
-    "prepare": "snowpack",
-    "sw": "workbox generateSW workbox-config.js",
-    "nomodule": "rollup -c",
-    "minify:css": "sqwish viewer.css -o viewer.css",
-    "minify:js:src": "find src -iname \"*.js\" -exec terser --compress --mangle --module -o {} -- {} \\;",
-    "minify:js:modules": "find web_modules -iname \"*.js\" -exec terser --compress --mangle --module -o {} -- {} \\;",
-    "minify:js:sw": "terser --compress --mangle --module -o sw.js -- sw.js",
-    "gzip": "gzip -k9nrf index.html viewer.css manifest.json && find . -maxdepth 2 -iname \"*.svg\" -exec gzip -k9nrf {} \\; && find src -iname \"*.js\" -exec gzip -k9nrf {} \\;"
-  },
-  "dependencies": {
-    "dark-mode-toggle": "^0.5.0",
-    "file-drop-element": "^0.2.0",
-    "insights-js": "^1.2.10"
+    "format": "prettier src/**/*.js *.{html,css,md,json} --write"
   },
   "devDependencies": {
-    "@rollup/plugin-multi-entry": "^3.0.0",
-    "prettier": "^1.19.1",
-    "rollup": "^1.31.1",
-    "snowpack": "^1.4.0",
-    "sqwish": "^0.2.2",
-    "terser": "^4.6.3",
-    "workbox-cli": "^5.0.0"
+    "prettier": "^1.19.1"
   },
   "prettier": {
     "singleQuote": true,
@@ -38,13 +17,6 @@
           "printWidth": 120
         }
       }
-    ]
-  },
-  "snowpack": {
-    "webDependencies": [
-      "dark-mode-toggle",
-      "file-drop-element",
-      "insights-js/dist/esnext/index.js"
     ]
   }
 }

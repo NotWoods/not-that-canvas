@@ -1,9 +1,9 @@
 export interface Layer {
   name: string;
+  shape: 'square' | 'circle' | 'other';
   fill: string;
   alpha: number;
   scale: number;
-  locked: boolean;
 }
 
 /**
@@ -11,6 +11,4 @@ export interface Layer {
  * @param {string} fill
  * @returns {import("./layer.js").Layer}
  */
-export function createLayer(fill: string): Layer;
-
-export function backgroundLayer(): Layer;
+export function createLayer(fill?: string): Layer;

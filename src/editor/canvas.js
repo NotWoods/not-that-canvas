@@ -8,26 +8,6 @@
  */
 
 /**
- * Returns the multiplier to scale the layer by.
- * For example, if padding is 0% then the return value will be 1.
- * @param {import('./layer.js').Layer} layer
- */
-function getScale(layer) {
-  return layer.scale / 100;
-}
-
-/**
- * Checks `img` is an image element containing an SVG image.
- * The data attribute is set in `createImage`.
- * @param {unknown} img
- */
-function isSvg(img) {
-  return (
-    img instanceof HTMLImageElement && img.dataset.mime_type === 'image/svg+xml'
-  );
-}
-
-/**
  * Render layer to given canvas.
  * @param {import('./layer.js').Layer} layer
  * @param {CanvasRenderingContext2D} ctx
@@ -35,33 +15,15 @@ function isSvg(img) {
  */
 export function drawLayer(layer, ctx, size) {
   ctx.clearRect(0, 0, size, size);
-  let width = getScale(layer) * size;
+  let width = (layer.scale / 100) * size;
   let height = width;
 
-  ctx.globalCompositeOperation = 'source-over';
   const insetX = (size - width) / 2;
   const insetY = (size - height) / 2;
 
   ctx.fillStyle = layer.fill;
   ctx.globalAlpha = layer.alpha / 100;
   ctx.fillRect(insetX, insetY, width, height);
-}
-
-/**
- * Creates a blob URL or data URL for the canvas.
- * @param {HTMLCanvasElement} canvas
- * @param {boolean} blob If true, try to return Blob URL.
- */
-export async function toUrl(canvas, blob) {
-  if (blob && canvas.toBlob) {
-    const blob = await new Promise(resolve =>
-      canvas.toBlob(resolve, 'image/png'),
-    );
-    return URL.createObjectURL(blob);
-  } else {
-    // No blob API, fallback to data URL
-    return canvas.toDataURL('image/png');
-  }
 }
 
 /**
