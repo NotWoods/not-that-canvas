@@ -19,28 +19,29 @@
     <aside class="layers">
       <h2>Layers</h2>
 
-      <button type="button" class="button--primary" name="add">
-        Add
-      </button>
-
       <ul class="layers__list">
         <li class="layer">
           <label class="layer__preview-button">
-            <input name="layer" type="radio" value="background" class="layer__radio" checked />
-            <canvas class="layer__preview layer__preview--background" height="64" width="64"></canvas>
-            <span class="layer__name">Background</span>
+            <input name="layer" type="radio" value="front" class="layer__radio" checked />
+            <canvas class="layer__preview" height="64" width="64"></canvas>
+            <span class="layer__name">Front</span>
+          </label>
+        </li>
+        <li class="layer">
+          <label class="layer__preview-button">
+            <input name="layer" type="radio" value="middle" class="layer__radio" checked />
+            <canvas class="layer__preview" height="64" width="64"></canvas>
+            <span class="layer__name">Middle</span>
+          </label>
+        </li>
+        <li class="layer">
+          <label class="layer__preview-button">
+            <input name="layer" type="radio" value="back" class="layer__radio" checked />
+            <canvas class="layer__preview" height="64" width="64"></canvas>
+            <span class="layer__name">Back</span>
           </label>
         </li>
       </ul>
-      <template class="layer__template">
-        <li class="layer">
-          <label class="layer__preview-button">
-            <input name="layer" type="radio" value="{{id}}" class="layer__radio" />
-            <canvas class="layer__preview" height="64" width="64"></canvas>
-            <span class="layer__name">Layer</span>
-          </label>
-        </li>
-      </template>
 
       <form class="options">
         <fieldset class="shape">

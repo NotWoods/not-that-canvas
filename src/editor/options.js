@@ -21,7 +21,7 @@ export function updatePreview(input) {
 export function selectLayer(layer) {
   options.shape.forEach(radio => {
     radio.checked = radio.value === layer.shape;
-  })
+  });
   options.scale.value = layer.scale;
   options.fill.value = layer.fill;
   options.alpha.value = layer.alpha;

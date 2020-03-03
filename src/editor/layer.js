@@ -7,13 +7,6 @@ function randomColor() {
   return `#${randomHex}`;
 }
 
-export function randomId() {
-  return Math.random()
-  .toString(36)
-  .replace(/[^a-z]+/g, '')
-  .substr(2, 10);
-}
-
 /**
  * Create a new image or color canvas.
  * @param {string} fill

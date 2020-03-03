@@ -5,8 +5,6 @@ export interface Layer {
   scale: number;
 }
 
-export function randomId(): string;
-
 /**
  * Create a new image or color canvas.
  * @param {string} fill
