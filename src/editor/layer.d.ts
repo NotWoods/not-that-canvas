@@ -1,10 +1,11 @@
 export interface Layer {
-  name: string;
   shape: 'square' | 'circle' | 'other';
   fill: string;
   alpha: number;
   scale: number;
 }
+
+export function randomId(): string;
 
 /**
  * Create a new image or color canvas.

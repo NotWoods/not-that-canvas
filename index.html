@@ -28,7 +28,7 @@
           <label class="layer__preview-button">
             <input name="layer" type="radio" value="background" class="layer__radio" checked />
             <canvas class="layer__preview layer__preview--background" height="64" width="64"></canvas>
-            <input class="layer__name" type="text" name="name" aria-label="Layer name" value="Background" />
+            <span class="layer__name">Background</span>
           </label>
         </li>
       </ul>
@@ -37,7 +37,7 @@
           <label class="layer__preview-button">
             <input name="layer" type="radio" value="{{id}}" class="layer__radio" />
             <canvas class="layer__preview" height="64" width="64"></canvas>
-            <input class="layer__name" type="text" name="name" aria-label="Layer name" />
+            <span class="layer__name">Layer</span>
           </label>
         </li>
       </template>

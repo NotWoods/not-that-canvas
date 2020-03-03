@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createLayer } from './layer.js';
+import { createLayer, randomId } from './layer.js';
 import { CanvasController, createCanvas, scaleCanvas } from './canvas.js';
 import { selectLayer, updatePreview } from './options.js';
 
@@ -61,23 +61,16 @@ function checked() {
  * @param {import("./layer.js").Layer} layer
  */
 function newLayerElement(layer) {
-  const randomId = Math.random()
-    .toString(36)
-    .replace(/[^a-z]+/g, '')
-    .substr(2, 10);
+  const id = randomId();
   const clone = document.importNode(template.content, true);
 
   /** @type {HTMLInputElement} */
   const radio = clone.querySelector('input[name="layer"]');
-  radio.value = randomId;
-  radio.id = randomId;
+  radio.value = id;
+  radio.id = id;
   radio.checked = true;
 
-  clone.querySelector('label').htmlFor = randomId;
-
-  /** @type {HTMLInputElement} */
-  const textInput = clone.querySelector('input[name="name"]');
-  textInput.value = layer.name;
+  clone.querySelector('label').htmlFor = id;
 
   selectLayer(layer);
 
@@ -90,25 +83,11 @@ function newLayerElement(layer) {
   list.prepend(clone);
 }
 
-/**
- * Sets the name of a layer based on the value in the text input.
- * @param {HTMLInputElement} textInput
- */
-function setLayerName(textInput) {
-  const radio = textInput.parentElement.previousElementSibling;
-  const layer = layers.get(radio);
-  layer.name = textInput.value;
-}
-
 selectLayer(layers.get(checked()));
 
 list.addEventListener('change', evt => {
   const input = /** @type {HTMLInputElement} */ (evt.target);
-  if (input.name === 'layer') {
-    selectLayer(layers.get(input));
-  } else if (input.name === 'name') {
-    setLayerName(input);
-  }
+  selectLayer(layers.get(input));
 });
 
 options.addEventListener('input', evt => {

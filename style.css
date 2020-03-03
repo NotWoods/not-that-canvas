@@ -129,12 +129,7 @@ body {
   grid-area: name;
   align-self: center;
 
-  font: inherit;
-  color: inherit;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  text-align: left;
 }
 
 .options {
@@ -170,7 +165,6 @@ body {
   grid-area: input;
 }
 .control__input:disabled,
-.layer__name:disabled,
 .control--radio:disabled label,
 .button--secondary:disabled {
   opacity: 0.5;

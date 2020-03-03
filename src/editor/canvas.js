@@ -2,12 +2,11 @@
 
 /**
  * @typedef {object} CanvasContainer
- * @prop {HTMLCanvasElement} canvas
- * @prop {CanvasRenderingContext2D} ctx
- * @prop {number} size
+ * Object that represents a canvas to draw on.
+ * @prop {HTMLCanvasElement} canvas Canvas element.
+ * @prop {CanvasRenderingContext2D} ctx Rendering context of the canvas.
+ * @prop {number} size Size of the canvas.
  */
-
-const EXPORT_SIZE = 1024;
 
 /**
  * Render layer to given canvas.
@@ -16,7 +15,6 @@ const EXPORT_SIZE = 1024;
  * @param {number} size
  */
 function drawLayer(layer, ctx, size) {
-  ctx.clearRect(0, 0, size, size);
   const scaledSize = (layer.scale / 100) * size;
   ctx.fillStyle = layer.fill;
   ctx.globalAlpha = layer.alpha / 100;
@@ -24,6 +22,7 @@ function drawLayer(layer, ctx, size) {
   ctx.beginPath();
   switch (layer.shape) {
     case 'square': {
+      // Square
       const insetX = (size - scaledSize) / 2;
       const insetY = (size - scaledSize) / 2;
 
@@ -31,6 +30,7 @@ function drawLayer(layer, ctx, size) {
       break;
     }
     case 'circle': {
+      // Circle
       const center = size / 2;
       const radius = scaledSize / 2;
       const start = 0;
@@ -97,7 +97,7 @@ export class CanvasController {
   /**
    * Add a layer and display its canvas
    * @param {import('./layer.js').Layer} layer
-   * @param {ReadonlyArray<Pick<CanvasContainer, 'canvas' | 'size'>>} canvases
+   * @param {readonly Omit<CanvasContainer, 'ctx'>[]} canvases
    */
   add(layer, canvases) {
     this.layers.unshift(layer);
@@ -126,23 +126,15 @@ export class CanvasController {
   /**
    * Export the layers onto a single canvas
    */
-  export() {
-    const size = EXPORT_SIZE;
+  export(size = 1024) {
+    const { canvas, ctx } = createCanvas(size);
 
-    // blank canvas
-    const { canvas: mainCanvas, ctx } = createCanvas(size);
-    // one canvas per layer
-    const { canvas: layerCanvas, ctx: layerCtx } = createCanvas(size);
+    ctx.clearRect(0, 0, size, size);
+    for (let i = this.layers.length - 1; i >= 0; i--) {
+      drawLayer(this.layers[i], ctx, size);
+    }
 
-    this.layers
-      .slice()
-      .reverse()
-      .forEach(layer => {
-        drawLayer(layer, layerCtx, size);
-        ctx.drawImage(layerCanvas, 0, 0);
-      });
-
-    return mainCanvas;
+    return canvas;
   }
 
   /**
@@ -152,6 +144,7 @@ export class CanvasController {
   draw(layer) {
     const canvases = this.canvases.get(layer);
     for (const { ctx, size } of canvases) {
+      ctx.clearRect(0, 0, size, size);
       drawLayer(layer, ctx, size);
     }
   }
