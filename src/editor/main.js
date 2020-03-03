@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createLayer, backgroundLayer, layersFromFiles } from './layer.js';
+import { createLayer, backgroundLayer } from './layer.js';
 import {
   CanvasController,
   toUrl,
@@ -131,14 +131,6 @@ options.addEventListener('input', evt => {
   });
 });
 
-/** @param {Iterable<File>} files */
-async function addFiles(files) {
-  // For each selected file, create a layer
-  const layers = await layersFromFiles(files);
-  // Insert layers after all load so that the order matches upload order
-  layers.forEach(newLayerElement);
-}
-
 /**
  * Attach click listener to button
  * @param {string} name
@@ -158,19 +150,6 @@ button('add', () => {
       .substr(-6);
   newLayerElement(createLayer(color));
 });
-button('delete', () => {
-  const radio = checked();
-  const layer = layers.get(radio);
-  if (layer.locked) return;
-  const sibling = radio.closest('.layer').nextElementSibling;
-  /** @type {HTMLInputElement} */
-  const nextRadio = sibling.querySelector('input[name="layer"]');
-  selectLayer(layers.get(nextRadio));
-  nextRadio.checked = true;
-
-  controller.delete(layer);
-  radio.closest('.layer').remove();
-});
 button('export', async () => {
   const url = await toUrl(controller.export(), true);
 
@@ -184,32 +163,4 @@ button('export', async () => {
   if (url.startsWith('blob:')) {
     URL.revokeObjectURL(url);
   }
-});
-button('share', async () => {
-  const url = await toUrl(controller.export(), false);
-  const params = new URLSearchParams({ demo: url });
-  const previewUrl = `https://maskable.app/?${params}`;
-
-  if (navigator.share) {
-    navigator.share({
-      url: previewUrl,
-      title: 'Maskable icon',
-    });
-  } else {
-    window.open(previewUrl, '_blank');
-  }
-});
-
-/** @type {HTMLInputElement} The "Upload" button */
-const fileInput = document.querySelector('.layers [name="upload"]');
-/** @type {import('file-drop-element').FileDropElement} The invisible file drop area */
-const fileDrop = document.querySelector('#icon_drop');
-
-fileInput.addEventListener('change', () => addFiles(fileInput.files));
-fileDrop.addEventListener('filedrop', evt => addFiles(evt.files));
-
-document.querySelectorAll('.toggle-layers').forEach(element => {
-  element.addEventListener('click', () =>
-    document.body.classList.toggle('open'),
-  );
 });

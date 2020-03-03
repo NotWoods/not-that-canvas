@@ -18,13 +18,11 @@ export function updatePreview(input) {
  * @param {import("./layer").Layer} layer
  */
 export function selectLayer(layer) {
-  options.padding.value = layer.padding;
-  options.padding.disabled = layer.locked;
+  options.scale.value = layer.scale;
+  options.scale.disabled = layer.locked;
   options.fill.value = layer.fill;
   options.alpha.value = layer.alpha;
   options.alpha.disabled = layer.locked;
-  options.delete.disabled = layer.locked;
-  options.fit[0].disabled = !layer.src;
   Array.from(options.elements).forEach(updatePreview);
 }
 

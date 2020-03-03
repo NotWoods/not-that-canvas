@@ -13,7 +13,7 @@
  * @param {import('./layer.js').Layer} layer
  */
 function getScale(layer) {
-  return 1 - layer.padding / 100;
+  return layer.scale / 100;
 }
 
 /**
@@ -39,25 +39,6 @@ export function drawLayer(layer, ctx, size) {
   let height = width;
 
   ctx.globalCompositeOperation = 'source-over';
-  if (layer.src) {
-    // If image layer...
-    const { height: srcHeight, width: srcWidth } = layer.src;
-    const srcRatio = srcWidth / srcHeight;
-
-    if (layer.fit === 'fill') {
-      // leave width and height as default
-    } else if (layer.fit === 'contain' ? srcRatio > 1 : srcRatio < 1) {
-      height = width / srcRatio;
-    } else {
-      width = height * srcRatio;
-    }
-    const insetX = (size - width) / 2;
-    const insetY = (size - height) / 2;
-
-    ctx.globalAlpha = 1;
-    ctx.drawImage(layer.src, insetX, insetY, width, height);
-    ctx.globalCompositeOperation = 'source-atop';
-  }
   const insetX = (size - width) / 2;
   const insetY = (size - height) / 2;
 
@@ -156,12 +137,7 @@ export class CanvasController {
    * Export the layers onto a single canvas
    */
   export() {
-    const sizes = this.layers
-      .filter(layer => layer.src && !isSvg(layer.src))
-      .map(layer => {
-        const src = /** @type {HTMLImageElement} */ (layer.src);
-        return Math.max(src.width, src.height) * (1 / getScale(layer));
-      });
+    const sizes = [];
     const size =
       sizes.length === 0 ? 1024 : sizes.reduce((acc, n) => Math.max(acc, n), 0);
 
