@@ -111,7 +111,6 @@ list.addEventListener('change', evt => {
   }
 });
 
-let lastHandle;
 options.addEventListener('input', evt => {
   const input = /** @type {HTMLInputElement} */ (evt.target);
 
@@ -119,11 +118,8 @@ options.addEventListener('input', evt => {
   layer[input.name] =
     input.type === 'range' ? Number.parseInt(input.value, 10) : input.value;
 
-  cancelAnimationFrame(lastHandle);
-  lastHandle = requestAnimationFrame(() => {
-    updatePreview(input);
-    controller.draw(layer);
-  });
+  updatePreview(input);
+  controller.draw(layer);
 });
 
 /**

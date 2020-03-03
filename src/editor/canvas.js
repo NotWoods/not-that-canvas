@@ -7,23 +7,51 @@
  * @prop {number} size
  */
 
+const EXPORT_SIZE = 1024;
+
 /**
  * Render layer to given canvas.
  * @param {import('./layer.js').Layer} layer
  * @param {CanvasRenderingContext2D} ctx
  * @param {number} size
  */
-export function drawLayer(layer, ctx, size) {
+function drawLayer(layer, ctx, size) {
   ctx.clearRect(0, 0, size, size);
-  let width = (layer.scale / 100) * size;
-  let height = width;
-
-  const insetX = (size - width) / 2;
-  const insetY = (size - height) / 2;
-
+  const scaledSize = (layer.scale / 100) * size;
   ctx.fillStyle = layer.fill;
   ctx.globalAlpha = layer.alpha / 100;
-  ctx.fillRect(insetX, insetY, width, height);
+
+  ctx.beginPath();
+  switch (layer.shape) {
+    case 'square': {
+      const insetX = (size - scaledSize) / 2;
+      const insetY = (size - scaledSize) / 2;
+
+      ctx.rect(insetX, insetY, scaledSize, scaledSize);
+      break;
+    }
+    case 'circle': {
+      const center = size / 2;
+      const radius = scaledSize / 2;
+      const start = 0;
+      const end = Math.PI * 2;
+
+      ctx.arc(center, center, radius, start, end);
+      break;
+    }
+    case 'other': {
+      // Triangle
+      const center = size / 2;
+      const offset = scaledSize / 2;
+
+      ctx.moveTo(center, center - offset);
+      ctx.lineTo(center - offset, center + offset);
+      ctx.lineTo(center + offset, center + offset);
+      break;
+    }
+  }
+  ctx.closePath();
+  ctx.fill();
 }
 
 /**
@@ -99,11 +127,11 @@ export class CanvasController {
    * Export the layers onto a single canvas
    */
   export() {
-    const sizes = [];
-    const size =
-      sizes.length === 0 ? 1024 : sizes.reduce((acc, n) => Math.max(acc, n), 0);
+    const size = EXPORT_SIZE;
 
+    // blank canvas
     const { canvas: mainCanvas, ctx } = createCanvas(size);
+    // one canvas per layer
     const { canvas: layerCanvas, ctx: layerCtx } = createCanvas(size);
 
     this.layers
