@@ -8,38 +8,36 @@
   </head>
 
   <body>
-    <article class="viewer">
-      <section class="icon__grid icon__mask masked editor__preview">
-        <canvas class="icon" height="192" width="192"></canvas>
-      </section>
+    <article class="viewer panel">
+      <canvas class="icon viewer__icon transparency-grid" height="192" width="192"></canvas>
 
       <button type="button" name="export">
         Export
       </button>
     </article>
 
-    <aside class="layers">
+    <aside class="layers panel">
       <h2>Layers</h2>
 
       <ul class="layers__list">
         <li class="layer">
           <label class="layer__preview-button">
             <input name="layer" type="radio" value="front" class="layer__radio" checked />
-            <canvas class="layer__preview" height="64" width="64"></canvas>
+            <canvas class="layer__preview transparency-grid" height="64" width="64"></canvas>
             <span class="layer__name">Front</span>
           </label>
         </li>
         <li class="layer">
           <label class="layer__preview-button">
             <input name="layer" type="radio" value="middle" class="layer__radio" checked />
-            <canvas class="layer__preview" height="64" width="64"></canvas>
+            <canvas class="layer__preview transparency-grid" height="64" width="64"></canvas>
             <span class="layer__name">Middle</span>
           </label>
         </li>
         <li class="layer">
           <label class="layer__preview-button">
             <input name="layer" type="radio" value="back" class="layer__radio" checked />
-            <canvas class="layer__preview" height="64" width="64"></canvas>
+            <canvas class="layer__preview transparency-grid" height="64" width="64"></canvas>
             <span class="layer__name">Back</span>
           </label>
         </li>
