@@ -1,4 +1,3 @@
-// @ts-check
 import { drawLayer } from './layer.js';
 
 /**
@@ -23,14 +22,17 @@ export function createCanvas(size) {
  * Scale an existing canvas element.
  * @param {HTMLCanvasElement} canvas
  * @param {number} size
+ * @returns {CanvasContainer}
  */
 export function scaleCanvas(canvas, size) {
+  const ctx = canvas.getContext('2d');
   const scale = window.devicePixelRatio || 1;
 
+  // Support high-density displays
   canvas.width = size * scale;
   canvas.height = size * scale;
-  const ctx = canvas.getContext('2d');
   ctx.scale(scale, scale);
+
   return { canvas, ctx, size };
 }
 
@@ -42,13 +44,13 @@ export class CanvasController {
     /**
      * List of layers to render
      * @private
-     * @type {import('./layer.js').Layer[]}
+     * @type {Layer[]}
      */
     this.layers = [];
     /**
      * Preview canvases corresponding to each layer
      * @private
-     * @type {Map<import('./layer.js').Layer, CanvasContainer>}
+     * @type {Map<Layer, CanvasContainer>}
      */
     this.previews = new Map();
     /**
@@ -59,7 +61,7 @@ export class CanvasController {
 
   /**
    * Add a layer and display its canvas
-   * @param {import('./layer.js').Layer} layer
+   * @param {Layer} layer
    * @param {CanvasContainer} preview
    */
   add(layer, preview) {
@@ -79,7 +81,7 @@ export class CanvasController {
 
   /**
    * Draw the layer on its corresponding canvases
-   * @param {import('./layer.js').Layer} layer
+   * @param {Layer} layer
    */
   draw(layer) {
     const { ctx, size } = this.previews.get(layer);

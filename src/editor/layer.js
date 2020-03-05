@@ -1,4 +1,10 @@
-// @ts-check
+/**
+ * @typedef {object} Layer Object that represents an image layer.
+ * @prop {'square' | 'circle' | 'other'} shape
+ * @prop {string} fill
+ * @prop {number} scale
+ * @prop {number} alpha
+ */
 
 function randomColor() {
   const randomHex = Math.random()
@@ -9,7 +15,7 @@ function randomColor() {
 
 /**
  * Create a new layer.
- * @returns {import("./layer.js").Layer}
+ * @returns {Layer}
  */
 export function createLayer() {
   return {
@@ -26,9 +32,9 @@ export function createLayer() {
 
 /**
  * Render layer to given canvas.
- * @param {import('./layer.js').Layer} layer
- * @param {CanvasRenderingContext2D} ctx
- * @param {number} size
+ * @param {Layer} layer Layer object, includes shape and size info.
+ * @param {CanvasRenderingContext2D} ctx Canvas drawing context.
+ * @param {number} size Size of the canvas (independent of high-density displays).
  */
 export function drawLayer(layer, ctx, size) {
   const scaledSize = (layer.scale / 100) * size;

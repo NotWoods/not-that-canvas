@@ -1,6 +1,3 @@
-// @ts-check
-/** @typedef {import("./layer.js").Layer} Layer */
-
 /**
  * List containing different layers to select.
  * @type {HTMLUListElement}
@@ -41,14 +38,15 @@ export class LayerOptions {
     // Event listeners (user events)
 
     list.addEventListener('change', evt => {
-      const input = /** @type {HTMLInputElement} */ (evt.target);
+      const input = evt.target;
       this.selectLayer(this.radioToLayer.get(input));
     });
 
     options.addEventListener('input', evt => {
-      const input = /** @type {HTMLInputElement} */ (evt.target);
+      const input = evt.target;
 
       const layer = this.getSelectedLayer();
+      // "range" inputs are numbers. Otherwise the data type is a string.
       layer[input.name] =
         input.type === 'range' ? Number.parseInt(input.value, 10) : input.value;
 
@@ -74,7 +72,7 @@ export class LayerOptions {
    * @private
    */
   getSelectedLayer() {
-    /** @type {HTMLInputElement} Checked radio button */
+    // Query checked radio button
     const radio = list.querySelector('input[name="layer"]:checked');
     return this.radioToLayer.get(radio);
   }

@@ -1,5 +1,3 @@
-// @ts-check
-
 import { createLayer } from './layer.js';
 import { CanvasController, scaleCanvas } from './canvas.js';
 import { LayerOptions } from './options.js';
@@ -11,7 +9,6 @@ const options = new LayerOptions();
 options.onLayerChange = layer => controller.draw(layer);
 
 // Look at each layer in the HTML and inflate it.
-/** @type {NodeListOf<HTMLCanvasElement>} */
 const layerElements = document.querySelectorAll('.layer__preview-button');
 Array.from(layerElements).map((button, index) => {
   const layer = createLayer();

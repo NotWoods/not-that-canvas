@@ -2,6 +2,12 @@ body {
   margin: 0;
   min-height: 100vh;
 
+  /*
+   * |----------|--------|
+   * |  Viewer  | Layers |
+   * |          | - ____ |
+   * |----------|--------|
+   */
   display: grid;
   grid-template-columns: auto 20rem;
   grid-template-areas: 'main sidebar';
@@ -37,7 +43,7 @@ button:active {
   display: block;
   height: 192px;
   width: 192px;
-  margin: 1em auto;
+  margin: 2rem auto;
 
   box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
 }
@@ -48,7 +54,6 @@ button:active {
 }
 .layers {
   background-color: #eee;
-  z-index: 5;
 }
 
 .transparency-grid {
