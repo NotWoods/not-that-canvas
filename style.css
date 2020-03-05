@@ -12,7 +12,7 @@ body {
   text-align: center;
 }
 
-.button--primary {
+button {
   display: inline-block;
   padding: 0 0.75rem;
   margin: 0 8px;
@@ -26,10 +26,10 @@ body {
   font-size: 0.875em;
   cursor: pointer;
 }
-.button--primary:hover {
+button:hover {
   box-shadow: 0 1px 2px #3c40434d, 0 1px 3px 1px #3c404326;
 }
-.button--primary:active {
+button:active {
   box-shadow: 0 1px 2px #3c40434d, 0 2px 6px 2px #3c404326;
 }
 
@@ -48,12 +48,9 @@ body {
   height: 100%;
 }
 
-.mask__option {
-  display: inline-block;
-  line-height: 1.5em;
-}
-
-.viewer {
+.viewer,
+.layers {
+  /* If either panel is too long, show a scrollbar */
   overflow-y: auto;
 }
 .layers {
@@ -62,26 +59,15 @@ body {
   background-color: #eee;
   z-index: 5;
 }
-.dark .layers {
-  background-color: #444;
-}
 .editor__preview {
-  background-image: linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.2) 25%,
-      transparent 25%
-    ),
-    linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.2) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.2) 75%);
+  /* Fancy effect that creates a grid background */
+  background-image:
+    linear-gradient(45deg,rgba(0, 0, 0, 0.2) 25%, transparent 0),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.2) 0),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.2) 0);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
-}
-
-.button--secondary {
-  color: inherit;
-  background: transparent !important;
-  border-color: currentColor;
 }
 
 .layers__list {
@@ -91,11 +77,15 @@ body {
   display: block;
 }
 .layer__preview-button {
+  /*
+   * |---|---------|------------|
+   * | o | preview | Layer Name |
+   * |---|---------|------------|
+   */
   display: grid;
   grid-template-columns: min-content 64px auto;
   grid-template-rows: 64px;
   grid-template-areas: 'radio preview name';
-  width: 100%;
 
   align-items: center;
   grid-gap: 0.5rem;
@@ -114,14 +104,12 @@ body {
   display: block;
   height: 100%;
   width: 100%;
-  background-image: linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.2) 25%,
-      transparent 25%
-    ),
-    linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.2) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.2) 75%);
+  /* Fancy effect that creates a grid background */
+  background-image:
+    linear-gradient(45deg,rgba(0, 0, 0, 0.2) 25%, transparent 0),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.2) 0),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.2) 0);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
 }
@@ -139,6 +127,13 @@ body {
   border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
 .control {
+  /*
+   * |---------------|
+   * | Input label   |
+   * |---------|-----|
+   * | _input_ | 37% |
+   * |---------|-----|
+   */
   display: grid;
   grid-template-columns: auto 5rem;
   grid-template-rows: min-content;
@@ -163,11 +158,6 @@ body {
 }
 .control__input {
   grid-area: input;
-}
-.control__input:disabled,
-.control--radio:disabled label,
-.button--secondary:disabled {
-  opacity: 0.5;
 }
 .control__preview {
   grid-area: preview;

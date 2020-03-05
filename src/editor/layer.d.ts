@@ -7,7 +7,14 @@ export interface Layer {
 
 /**
  * Create a new image or color canvas.
- * @param {string} fill
- * @returns {import("./layer.js").Layer}
  */
-export function createLayer(fill?: string): Layer;
+export function createLayer(): Layer;
+
+/**
+ * Render layer to given canvas.
+ */
+export function drawLayer(
+  layer: Layer,
+  ctx: CanvasRenderingContext2D,
+  size: number,
+): void;

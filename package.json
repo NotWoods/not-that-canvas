@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "format": "prettier src/**/*.js *.{html,css,md,json} --write"
+    "format": "prettier src/**/*.{js,ts} *.{html,css,md,json} --write"
   },
   "devDependencies": {
     "prettier": "^1.19.1"
