@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "scripts": {
+    "format": "prettier src/**/*.{js,ts} *.{html,css,md,json} --write"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "proseWrap": "always",
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "printWidth": 120
+        }
+      }
+    ]
+  }
+}

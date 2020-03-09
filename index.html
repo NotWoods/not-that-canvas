@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Icon App</title>
+    <link href="style.css" rel="stylesheet" />
+    <script type="module" src="src/editor/main.js"></script>
+  </head>
+
+  <body>
+    <article class="viewer panel">
+      <canvas class="icon viewer__icon transparency-grid" height="192" width="192"></canvas>
+
+      <button type="button" name="export">
+        Export
+      </button>
+    </article>
+
+    <aside class="layers panel">
+      <h2>Layers</h2>
+
+      <ul class="layers__list">
+        <li class="layer">
+          <label class="layer__preview-button">
+            <input name="layer" type="radio" value="front" class="layer__radio" checked />
+            <canvas class="layer__preview transparency-grid" height="64" width="64"></canvas>
+            <span class="layer__name">Front</span>
+          </label>
+        </li>
+        <li class="layer">
+          <label class="layer__preview-button">
+            <input name="layer" type="radio" value="middle" class="layer__radio" checked />
+            <canvas class="layer__preview transparency-grid" height="64" width="64"></canvas>
+            <span class="layer__name">Middle</span>
+          </label>
+        </li>
+        <li class="layer">
+          <label class="layer__preview-button">
+            <input name="layer" type="radio" value="back" class="layer__radio" checked />
+            <canvas class="layer__preview transparency-grid" height="64" width="64"></canvas>
+            <span class="layer__name">Back</span>
+          </label>
+        </li>
+      </ul>
+
+      <form class="options">
+        <fieldset class="shape">
+          <legend>Shape</legend>
+          <label class="shape">
+            <input class="shape__input" type="radio" name="shape" value="square" checked />
+            <span class="shape__label">Square</span>
+          </label>
+          <label class="shape">
+            <input class="shape__input" type="radio" name="shape" value="circle" />
+            <span class="shape__label">Circle</span>
+          </label>
+          <label class="shape">
+            <input class="shape__input" type="radio" name="shape" value="other" />
+            <span class="shape__label">Other</span>
+          </label>
+        </fieldset>
+
+        <label class="control">
+          <span class="control__label">Scale</span>
+          <input class="control__input" name="scale" min="1" max="200" step="1" value="100" />
+          <span class="control__preview" data-suffix="%"></span>
+        </label>
+
+        <!-- TODO: Add "fill" and "alpha" inputs -->
+      </form>
+    </aside>
+  </body>
+</html>

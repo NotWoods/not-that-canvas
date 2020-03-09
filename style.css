@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  /*
+   * |----------|--------|
+   * |  Viewer  | Layers |
+   * |          | - ____ |
+   * |----------|--------|
+   */
+  display: grid;
+  grid-template-columns: auto 20rem;
+  grid-template-areas: 'main sidebar';
+
+  /* TODO: Set font and background */
+  color: #000000;
+  text-align: center;
+}
+
+/* TODO: Add styles for button */
+
+.viewer__icon {
+  display: block;
+  height: 192px;
+  width: 192px;
+  margin: 2rem auto;
+
+  box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+.panel {
+  /* If either panel is too long, show a scrollbar */
+  overflow-y: auto;
+}
+.layers {
+  background: #eeeeee;
+}
+
+.transparency-grid {
+  /* Fancy effect that creates a grid background */
+  background-image:
+    linear-gradient(45deg,rgba(0, 0, 0, 0.2) 25%, transparent 0),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.2) 25%, transparent 0),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.2) 0),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.2) 0);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+.layers__list {
+  padding: 0;
+}
+.layer {
+  display: block;
+}
+.layer__preview-button {
+  /*
+   * |---|---------|------------|
+   * | o | preview | Layer Name |
+   * |---|---------|------------|
+   */
+  display: grid;
+  grid-template-columns: min-content 64px auto;
+  grid-template-rows: 64px;
+  grid-template-areas: 'radio preview name';
+
+  align-items: center;
+  grid-gap: 0.5rem;
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  padding: 0.5rem;
+}
+
+.layer__radio {
+  grid-area: radio;
+}
+.layer__preview {
+  grid-area: preview;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.layer__name {
+  grid-area: name;
+  align-self: center;
+
+  text-align: left;
+}
+
+.options {
+  padding: 0.5rem;
+
+  text-align: left;
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+.control {
+  /*
+   * |---------------|
+   * | Input label   |
+   * |---------|-----|
+   * | _input_ | 37% |
+   * |---------|-----|
+   */
+  display: grid;
+  grid-template-columns: auto 5rem;
+  grid-template-rows: min-content;
+  grid-template-areas:
+    'label label'
+    'input preview';
+  grid-gap: 0.25rem;
+}
+.shape {
+  margin: 0 0 1rem;
+}
+
+.control,
+.control--radio {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+.control__label {
+  grid-area: label;
+}
+.control__input {
+  grid-area: input;
+}
+.control__preview {
+  grid-area: preview;
+}
