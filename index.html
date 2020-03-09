@@ -62,11 +62,21 @@
 
         <label class="control">
           <span class="control__label">Scale</span>
-          <input class="control__input" name="scale" min="1" max="200" step="1" value="100" />
+          <input class="control__input" type="range" name="scale" min="1" max="200" step="1" value="100" />
           <span class="control__preview" data-suffix="%"></span>
         </label>
 
-        <!-- TODO: Add "fill" and "alpha" inputs -->
+        <label class="control">
+          <span class="control__label">Color</span>
+          <input class="control__input" type="color" name="fill" value="#448AFF" />
+          <span class="control__preview"></span>
+        </label>
+
+        <label class="control">
+          <span class="control__label">Transparency</span>
+          <input class="control__input" type="range" name="alpha" min="0" max="100" step="1" value="100" />
+          <span class="control__preview" data-suffix="%"></span>
+        </label>
       </form>
     </aside>
   </body>

@@ -12,12 +12,32 @@ body {
   grid-template-columns: auto 20rem;
   grid-template-areas: 'main sidebar';
 
-  /* TODO: Set font and background */
-  color: #000000;
+  font-family: sans-serif;
+  color: black;
+  background: #fafafa;
   text-align: center;
 }
 
-/* TODO: Add styles for button */
+button {
+  display: inline-block;
+  padding: 0 0.75rem;
+  margin: 0 8px;
+  line-height: 2.25rem;
+
+  border: 1px solid black;
+  border-radius: 4px;
+  color: black;
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.875em;
+  cursor: pointer;
+}
+button:hover {
+  box-shadow: 0 1px 2px #3c40434d, 0 1px 3px 1px #3c404326;
+}
+button:active {
+  box-shadow: 0 1px 2px #3c40434d, 0 2px 6px 2px #3c404326;
+}
 
 .viewer__icon {
   display: block;
@@ -33,7 +53,7 @@ body {
   overflow-y: auto;
 }
 .layers {
-  background: #eeeeee;
+  background-color: #eee;
 }
 
 .transparency-grid {

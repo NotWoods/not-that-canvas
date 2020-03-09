@@ -5,7 +5,7 @@
 ```sh
 git clone https://github.com/NotWoods/not-that-canvas
 cd not-that-canvas
-git checkout day1
+git checkout day2
 ```
 
 ## Running the server

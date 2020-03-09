@@ -45,10 +45,14 @@ export class LayerOptions {
     options.addEventListener('input', evt => {
       const input = evt.target;
 
-      // TODO: getSelectedLayer
       const layer = this.getSelectedLayer();
 
-      // TODO: get value and update layer
+      // "range" inputs are numbers. Otherwise the data type is a string.
+      let value = input.value;
+      if (input.type === 'range') {
+        value = parseInt(input.value, 10);
+      }
+      layer[input.name] = value;
 
       updateInputText(input);
       this.onLayerChange(layer);
@@ -72,7 +76,9 @@ export class LayerOptions {
    * @private
    */
   getSelectedLayer() {
-    // TODO: Query checked radio button
+    // Query checked radio button
+    const radio = list.querySelector(':checked');
+    return this.radioToLayer.get(radio);
   }
 
   /**
