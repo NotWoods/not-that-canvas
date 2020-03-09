@@ -1,14 +1,31 @@
 # No, not that Canvas API
 
-Private repo: https://github.com/NotWoods/not-that-canvas-instructor
-Public repo: https://github.com/NotWoods/not-that-canvas
-
-## Checkout instructors
-(adds both repos as remotes)
+## Clone repo
 
 ```sh
-git checkout https://github.com/NotWoods/not-that-canvas -o student
+git clone https://github.com/NotWoods/not-that-canvas
 cd not-that-canvas
-git remote add origin https://github.com/NotWoods/not-that-canvas-instructor
-git fetch origin
 ```
+
+## Running the server
+
+If using Max or Linux, you can use your built-in Python installation to run a simple web server.
+
+```sh
+cd not-that-canvas
+python3 -m http.server
+```
+
+Then open `localhost:8000`.
+
+---
+
+Alternatively, you can install [Node.js](https://nodejs.org/en/) then use it to run a simple web server.
+
+```sh
+# After node.js is installed...
+cd not-that-canvas
+npx serve
+```
+
+Then open `localhost:5000`.

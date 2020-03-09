@@ -4,7 +4,8 @@
     "format": "prettier src/**/*.{js,ts} *.{html,css,md,json} --write"
   },
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "serve": "^11.3.0"
   },
   "prettier": {
     "singleQuote": true,
