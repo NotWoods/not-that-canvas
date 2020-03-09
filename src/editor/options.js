@@ -15,7 +15,7 @@ const options = document.querySelector('.options');
  */
 function updateInputText(input) {
   if (input.matches('.control__input')) {
-    const preview = /** @type {HTMLSpanElement} */ (input.nextElementSibling);
+    const preview = input.nextElementSibling;
     preview.textContent = input.value + (preview.dataset.suffix || '');
   }
 }
@@ -46,9 +46,13 @@ export class LayerOptions {
       const input = evt.target;
 
       const layer = this.getSelectedLayer();
+
       // "range" inputs are numbers. Otherwise the data type is a string.
-      layer[input.name] =
-        input.type === 'range' ? Number.parseInt(input.value, 10) : input.value;
+      let value = input.value;
+      if (input.type === 'range') {
+        value = parseInt(input.value, 10);
+      }
+      layer[input.name] = value;
 
       updateInputText(input);
       this.onLayerChange(layer);
@@ -73,7 +77,7 @@ export class LayerOptions {
    */
   getSelectedLayer() {
     // Query checked radio button
-    const radio = list.querySelector('input[name="layer"]:checked');
+    const radio = list.querySelector(':checked');
     return this.radioToLayer.get(radio);
   }
 
@@ -86,9 +90,9 @@ export class LayerOptions {
     options.shape.forEach(radio => {
       radio.checked = radio.value === layer.shape;
     });
-    options.scale.value = layer.scale;
-    options.fill.value = layer.fill;
-    options.alpha.value = layer.alpha;
+    if (options.scale) options.scale.value = layer.scale;
+    if (options.fill) options.fill.value = layer.fill;
+    if (options.alpha) options.alpha.value = layer.alpha;
     Array.from(options.elements).forEach(updateInputText);
   }
 }
