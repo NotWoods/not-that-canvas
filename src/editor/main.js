@@ -6,14 +6,17 @@ const PREVIEW_SIZE = 64;
 
 const controller = new CanvasController(document.querySelector('.icon'));
 const options = new LayerOptions();
-options.onLayerChange = layer => controller.draw(layer);
+options.onLayerChange = function (layer) {
+  controller.draw(layer);
+}
 
 // Look at each layer in the HTML and inflate it.
 const layerElements = document.querySelectorAll('.layer__preview-button');
-Array.from(layerElements).map((button, index) => {
+for (let i = 0; i < layerElements.length; i++) {
+  const button = layerElements[i];
   const layer = createLayer();
   // Make the layers increasing in size by default.
-  layer.scale = 100 - (layerElements.length - index - 1) * 30;
+  layer.scale = 100 - (layerElements.length - i - 1) * 30;
 
   options.storeRadioAndLayer(button.querySelector('input'), layer);
 
@@ -23,7 +26,7 @@ Array.from(layerElements).map((button, index) => {
   );
 
   controller.add(layer, previewCanvas);
-});
+}
 
 // When the export button is clicked, download the icon as an image.
 document
